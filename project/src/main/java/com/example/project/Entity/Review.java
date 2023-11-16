@@ -2,9 +2,6 @@ package com.example.project.Entity;
 
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Entity
 public abstract class Review {
     @Id
@@ -17,7 +14,7 @@ public abstract class Review {
 
     @ManyToOne
     @JoinColumn(name="freelancer_id")
-    private freelancer freelancer;
+    private Freelancer freelancer;
 
     @ManyToOne
     @JoinColumn(name="client_id")

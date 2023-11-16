@@ -25,7 +25,7 @@ public class Project {
 
     @ManyToOne
     @JoinColumn(name="freelancer_id")
-    private freelancer freelancers;
+    private Freelancer freelancers;
 
     @ManyToOne
     @JoinColumn(name="client_id")

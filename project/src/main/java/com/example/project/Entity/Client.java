@@ -9,6 +9,8 @@ import java.util.Set;
 @Entity
 public class Client extends User{
 
+
+
     @Override
     public void resetPwd() {
 
@@ -27,5 +29,7 @@ public class Client extends User{
     )
     private List<Review> reviews = new ArrayList<>();
 
-
+    public List<Project> getProjects() {
+        return projects;
+    }
 }

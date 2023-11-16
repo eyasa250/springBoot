@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class freelancer extends User {
+public class Freelancer extends User {
 
 
     @Override

@@ -21,7 +21,7 @@ public class WorkSample {
 
     @ManyToOne
     @JoinColumn(name="freelancer_id")
-    private freelancer freelance;
+    private Freelancer freelance;
     @ManyToMany (cascade = CascadeType.ALL)
     Set<Client> clients;
 

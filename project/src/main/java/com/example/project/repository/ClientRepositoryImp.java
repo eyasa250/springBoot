@@ -1,0 +1,33 @@
+package com.example.project.repository;
+
+import com.example.project.Entity.Client;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.Query;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+
+public class ClientRepositoryImp implements  ClientRepositoryCostum{
+    @PersistenceContext
+    private EntityManager entityManager;
+
+    @Transactional
+    public Client getClientByNom(String nom) {
+        Query query=entityManager.createNativeQuery("SELECT C.* FROM Client c"+
+                "WHERE C.nom LIKE ?", Client.class);
+        query.setParameter( 1, nom +"%");
+        return (Client) query.getSingleResult();
+    }
+
+    @Transactional
+    public boolean existsByEmailLike(String email) {
+        Query query=entityManager.createNativeQuery("SELECT C.email FROM Client c"+
+                "WHERE C.email LIKE ?", Client.class);
+        query.setParameter( 1, email +"%");
+        List<Client> resultList = query.getResultList();
+        return !resultList.isEmpty();
+
+    }
+
+}
