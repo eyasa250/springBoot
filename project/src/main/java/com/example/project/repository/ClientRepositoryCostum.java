@@ -7,4 +7,6 @@ public interface ClientRepositoryCostum {
     Client getClientByNom(String nom);
 
     boolean existsByEmailLike(String email);
+
+    boolean existsByUsernameLike(String username);
 }

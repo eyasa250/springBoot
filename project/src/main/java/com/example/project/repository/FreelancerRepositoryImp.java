@@ -30,5 +30,14 @@ public class FreelancerRepositoryImp implements FreelancerRepositoryCostum {
         return !resultList.isEmpty();
 
     }
+    @Transactional
+    public boolean existsByUsernameLike (String username) {
+        Query query=entityManager.createNativeQuery("SELECT F.username FROM Freelancer F"+
+                "WHERE F.username LIKE ?", Freelancer.class);
+        query.setParameter( 1, username +"%");
+        List<Freelancer> resultList = query.getResultList();
+        return !resultList.isEmpty();
+
+    }
 
 }

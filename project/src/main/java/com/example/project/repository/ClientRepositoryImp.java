@@ -29,5 +29,14 @@ public class ClientRepositoryImp implements  ClientRepositoryCostum{
         return !resultList.isEmpty();
 
     }
+    @Transactional
+    public boolean existsByUsernameLike (String username){
+        Query query=entityManager.createNativeQuery("SELECT C.username FROM Client c"+
+                "WHERE C.username LIKE ?", Client.class);
+        query.setParameter( 1, username +"%");
+        List<Client> resultList = query.getResultList();
+        return !resultList.isEmpty();
+
+    }
 
 }

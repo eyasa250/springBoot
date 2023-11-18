@@ -8,5 +8,7 @@ public interface FreelancerRepositoryCostum {
 
     boolean existsByEmailLike(String email);
 
+    boolean existsByUsernameLike (String username);
+
 
 }

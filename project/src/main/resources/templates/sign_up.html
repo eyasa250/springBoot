@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Sign up</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<body>
+  <section class="container">
+    <div class="login-container">
+      <div class="circle circle-one"></div>
+      <div class="form-container">
+        <img th:src="@{'https://drive.google.com/uc?export=view&id=1bKgdKUQ2Uhx6rjY7LNTuBjLfZhJxKVSq'}" alt="illustration" class="illustration" />
+        <h1 class="opacity">SIGN UP</h1>
+        <form th:action="@{/auth/signup}" action="login.html" method="post" th:object="${user}" onsubmit= "return validateForm()">
+          <input type="text" id="nom" th:field="${user.nom}" placeholder="NOM" required>
+          <!-- <label for="email">Email:</label> -->
+          <input type="email" id="email" name="email" th:field="${user.email}" placeholder="EMAIL" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" required>
+          <!-- <label for="username">Username:</label> -->
+          <input type="text" id="username" th:field="${user.username}" placeholder="USERNAME" required>
+          <!-- <label for="password">Password:</label> -->
+          <input type="password" id="password" th:field="${user.password}" placeholder="PASSWORD" required>
+          <!-- <label for="confirmPassword">Confirm Password:</label> -->
+          <input type="password" id="confirmPassword" placeholder="RETYPE PASSWORD" required>
+
+
+
+          <select th:field="${user.role}" id="selectRole" >
+            <option id="optionRole" th:each="enumRole : ${T(com.example.project.Entity.Role).values()}" th:value="${enumRole}" th:text="${enumRole.name()}">Role</option>
+          </select>
+          <div th:if="${error}" class="error">
+            <p th:text="${error}" style="color:red;"></p>
+          </div>
+          <button class="opacity">REGISTER</button>
+        </form>
+        <div class="register-forget opacity">
+          <a th:href="@{/auth/login}">RETURN TO LOGIN</a>
+        <!--<div class="register-forget opacity">
+          <a href="">REGISTER</a>
+          <a href="">FORGOT PASSWORD</a>-->
+        </div> 
+      </div>
+      <div class="circle circle-two"></div>
+    </div>
+    <div class="theme-btn-container"></div>
+  </section>
+</body>
+<!-- partial -->
+  <script  th:src="@{/js/script.js}"></script>
+
+</body>
+</html>

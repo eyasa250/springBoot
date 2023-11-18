@@ -9,6 +9,14 @@ import java.util.List;
 public class Freelancer extends User {
 
 
+    public Freelancer(String username, String email, String password, Role role, String nom) {
+        super(username,email,password,role,nom);
+    }
+
+    public Freelancer() {
+
+    }
+
     @Override
     public void resetPwd() {
     }
@@ -27,6 +35,14 @@ public class Freelancer extends User {
     )
     private List<Review> reviews = new ArrayList<>();
 
-
+    public static Freelancer createFreelancerObjectFromUser(User user) {
+        return new Freelancer(
+                user.getUsername(),
+                user.getEmail(),
+                user.getPassword(),
+                user.getRole(),
+                user.getNom()
+        );
+    }
 
 }

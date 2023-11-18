@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>LOGIN</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<body>
+  <section class="container">
+    <div class="login-container">
+      <div class="circle circle-one"></div>
+      <div class="form-container">
+        <img src="https://drive.google.com/uc?export=view&id=1bKgdKUQ2Uhx6rjY7LNTuBjLfZhJxKVSq" alt="illustration" class="illustration" />
+        <h1 class="opacity">LOGIN</h1>
+        <form action="/auth/login" method="post" th:action="@{/auth/login}" th:object="${user}">
+          <input type="text" placeholder="USERNAME" th:field="*{username}" />
+          <input type="password" placeholder="PASSWORD" th:field="*{password}" />
+          <div th:if="${error}" class="error">
+            <p th:text="${error}" style="color:red;"></p>
+          </div>
+          <button class="opacity">LOGIN</button>
+        </form>
+        <div class="register-forget opacity">
+          <a th:href="@{/auth/signup}">REGISTER</a>
+          <a href="password_reset.html">FORGOT PASSWORD</a>
+        </div>
+      </div>
+      <div class="circle circle-two"></div>
+    </div>
+    <div class="theme-btn-container"></div>
+  </section>
+</body>
+<!-- partial -->
+  <script  th:src="@{/js/script.js}"></script>
+
+</body>
+</html>

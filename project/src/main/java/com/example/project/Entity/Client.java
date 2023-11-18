@@ -10,6 +10,13 @@ import java.util.Set;
 public class Client extends User{
 
 
+    public Client(String username, String email, String password, Role role, String nom) {
+        super(username,email,password,role,nom);
+    }
+
+    public Client() {
+
+    }
 
     @Override
     public void resetPwd() {
@@ -31,5 +38,15 @@ public class Client extends User{
 
     public List<Project> getProjects() {
         return projects;
+    }
+
+    public static Client createClientObjectFromUser(User user) {
+        return new Client(
+                user.getUsername(),
+                user.getEmail(),
+                user.getPassword(),
+                user.getRole(),
+                user.getNom()
+        );
     }
 }

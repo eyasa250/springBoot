@@ -30,11 +30,15 @@ public class ClientServiceImp implements  ClientService{
     @Override
     public Client createClient(Client client) {
         if (!emailValidator.test(client.getEmail())) {
-            throw new ApiRequestException(client.getEmail()+" is not valid");
+            throw new ApiRequestException("Email is not valid");
         }
-        System.out.println(clientRepository.existsByEmailLike(client.getEmail()));
+
         if (clientRepository.existsByEmailLike(client.getEmail())) {
-            throw new ApiRequestException(client.getEmail()+" is taken");
+            throw new ApiRequestException("Email is already taken");
+        }
+
+        if (clientRepository.existsByUsernameLike(client.getUsername())) {
+            throw new ApiRequestException("Username is already taken");
         }
         return clientRepository.save(client);
     }

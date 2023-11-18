@@ -2,7 +2,7 @@ package com.example.project.Entity;
 
 import jakarta.persistence.*;
 @Entity
-public abstract class User {
+public class User {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private  Long id;
@@ -13,9 +13,28 @@ public abstract class User {
     @Column(name="password")
     private  String password;
 
+    @Column(name="role")
+    private Role role;
+
+
     @Column(name="nom")
     private  String nom;
-    public abstract void resetPwd();
+    public void resetPwd() {
+
+    }
+
+
+    public User(String username, String email, String password, Role role, String nom) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+        this.nom = nom;
+    }
+
+    public User() {
+
+    }
 
     public Long getId() {
         return id;
@@ -55,5 +74,12 @@ public abstract class User {
 
     public void setNom(String nom) {
         this.nom = nom;
+    }
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 }
