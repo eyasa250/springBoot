@@ -41,7 +41,7 @@ public class Freelancer extends User {
                 user.getEmail(),
                 user.getPassword(),
                 user.getRole(),
-                user.getNom()
+                user.getFullname()
         );
     }
 

@@ -46,7 +46,7 @@ public class Client extends User{
                 user.getEmail(),
                 user.getPassword(),
                 user.getRole(),
-                user.getNom()
+                user.getFullname()
         );
     }
 }

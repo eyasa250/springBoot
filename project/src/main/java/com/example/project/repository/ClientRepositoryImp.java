@@ -13,10 +13,10 @@ public class ClientRepositoryImp implements  ClientRepositoryCostum{
     private EntityManager entityManager;
 
     @Transactional
-    public Client getClientByNom(String nom) {
+    public Client getClientByFullname(String fullname) {
         Query query=entityManager.createNativeQuery("SELECT C.* FROM Client c"+
-                "WHERE C.nom LIKE ?", Client.class);
-        query.setParameter( 1, nom +"%");
+                "WHERE C.fullname LIKE ?", Client.class);
+        query.setParameter( 1, fullname +"%");
         return (Client) query.getSingleResult();
     }
 

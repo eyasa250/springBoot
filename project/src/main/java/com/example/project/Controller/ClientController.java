@@ -37,15 +37,15 @@ public class ClientController {
     }
 
     @GetMapping("/getone/{Nom}")
-    public ResponseEntity<Object> getClient(@PathVariable("Nom") String nom) {
+    public ResponseEntity<Object> getClient(@PathVariable("Fullname") String fullname) {
 
 
-        Client c1 = clientServiceImp.getClientByNom(nom);
+        Client c1 = clientServiceImp.getClientByFullname(fullname);
 
         if (c1 != null) {
             return new ResponseEntity<>(c1 , HttpStatus.OK);
         } else {
-            return new ResponseEntity<>(nom , HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(fullname , HttpStatus.NOT_FOUND);
         }
     }
 

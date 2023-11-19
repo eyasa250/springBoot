@@ -4,18 +4,22 @@ import com.example.project.Entity.Client;
 import com.example.project.Entity.Freelancer;
 import com.example.project.Entity.User;
 import com.example.project.Exception.ApiRequestException;
+import com.example.project.dto.UserDto;
 import com.example.project.servives.ClientServiceImp;
 import com.example.project.servives.FreelancerServiceImp;
 import com.example.project.servives.UserServiceImp;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.web.WebAttributes;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping(value="/auth")
+@RequestMapping("/auth")
 public class AuthController {
 
     @Autowired
@@ -28,19 +32,28 @@ public class AuthController {
     private FreelancerServiceImp freelancerServiceImp;
     @GetMapping("/")
     public String home(Model model) {
-        /*model.addAttribute("user", new User());*/
+        model.addAttribute("user", new User());
         return "index";
     }
 
 
     @GetMapping("/login")
-    public String showLoginForm(Model model) {
-        model.addAttribute("user", new User());
+    public String showLoginForm(HttpServletRequest request,Model model) {
+
+        AuthenticationException authException = (AuthenticationException) request.getSession()
+                .getAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
+
+        if (authException != null) {
+            model.addAttribute("error", "Invalid username or password");
+        }
+
+        // Clear the session attribute to prevent displaying the same error on subsequent requests
+        request.getSession().removeAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
         return "login";
     }
 
 
-    @PostMapping("/login")
+/*    @PostMapping("/login")
     public String processLogin(User user,Model model) {
 
         boolean ok = userServiceImp.findByUsernamePassword(user.getUsername(),user.getPassword());
@@ -49,24 +62,24 @@ public class AuthController {
             model.addAttribute("error", "Your username or password is wrong");
             return "login";
         }
-}
+}*/
 
     @GetMapping("/signup")
     public String showSignUpForm(Model model) {
-        model.addAttribute("user", new User());
+        model.addAttribute("user", new UserDto());
         return "sign_up";
     }
 
     @PostMapping("/signup")
-    public String processSignUp(User user,Model model) {
+    public String processSignUp(UserDto user,Model model) {
 
         Client c = null;
         Freelancer f = null;
         try {
             if (user.getRole().name().equals("CLIENT"))
-                c =clientServiceImp.createClient(Client.createClientObjectFromUser(user));
+                c =clientServiceImp.createClient(user);
             else if (user.getRole().name().equals("FREELANCER"))
-                f =freelancerServiceImp.createFreelancer(Freelancer.createFreelancerObjectFromUser(user));
+                f =freelancerServiceImp.createFreelancer(user);
 
         } catch(ApiRequestException e) {
             model.addAttribute("error", e.getMessage());

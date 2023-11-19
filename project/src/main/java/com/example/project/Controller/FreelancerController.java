@@ -32,15 +32,15 @@ public class FreelancerController {
     }
 
     @GetMapping("/getone/{Nom}")
-    public ResponseEntity<Object> getFreelancer(@PathVariable("Nom") String nom) {
+    public ResponseEntity<Object> getFreelancer(@PathVariable("Fullname") String fullname) {
 
 
-        Freelancer f1 = freelancerServiceImp.getFreelancerByNom(nom);
+        Freelancer f1 = freelancerServiceImp.getFreelancerByFullname(fullname);
 
         if (f1 != null) {
             return new ResponseEntity<>(f1 , HttpStatus.OK);
         } else {
-            return new ResponseEntity<>(nom , HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(fullname , HttpStatus.NOT_FOUND);
         }
     }
 

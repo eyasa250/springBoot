@@ -1,10 +1,13 @@
 package com.example.project.servives;
 
+import com.example.project.Entity.Client;
 import com.example.project.Entity.Freelancer;
 import com.example.project.Entity.User;
 import com.example.project.Exception.ApiRequestException;
+import com.example.project.dto.UserDto;
 import com.example.project.repository.FreelancerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.example.project.Validator.EmailValidator;
 
@@ -14,13 +17,16 @@ import java.util.List;
 public class FreelancerServiceImp implements FreelancerService {
 
     @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
     private FreelancerRepository freelancerRepository;
 
     @Autowired
     private EmailValidator emailValidator;
     @Override
-    public Freelancer getFreelancerByNom(String nom) {
-        return freelancerRepository.getFreelancerByNom(nom);
+    public Freelancer getFreelancerByFullname(String fullname) {
+        return freelancerRepository.getFreelancerByFullname(fullname);
     }
 
     @Override
@@ -29,19 +35,20 @@ public class FreelancerServiceImp implements FreelancerService {
     }
 
     @Override
-    public Freelancer createFreelancer(Freelancer freelancer) {
-        if (!emailValidator.test(freelancer.getEmail())) {
+    public Freelancer createFreelancer(UserDto user) {
+        if (!emailValidator.test(user.getEmail())) {
             throw new ApiRequestException("Email is not valid");
         }
 
-        if (freelancerRepository.existsByEmailLike(freelancer.getEmail())) {
+        if (freelancerRepository.existsByEmailLike(user.getEmail())) {
             throw new ApiRequestException("Email is already taken");
         }
 
-        if (freelancerRepository.existsByEmailLike(freelancer.getUsername())) {
+        if (freelancerRepository.existsByEmailLike(user.getUsername())) {
             throw new ApiRequestException("Username is already taken");
         }
 
+        Freelancer freelancer = new Freelancer(user.getUsername(), user.getEmail(), passwordEncoder.encode(user.getPassword()) , user.getRole(), user.getFullname());
         return freelancerRepository.save(freelancer);
     }
 

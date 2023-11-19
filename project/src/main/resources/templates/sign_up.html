@@ -17,7 +17,7 @@
         <img th:src="@{'https://drive.google.com/uc?export=view&id=1bKgdKUQ2Uhx6rjY7LNTuBjLfZhJxKVSq'}" alt="illustration" class="illustration" />
         <h1 class="opacity">SIGN UP</h1>
         <form th:action="@{/auth/signup}" action="login.html" method="post" th:object="${user}" onsubmit= "return validateForm()">
-          <input type="text" id="nom" th:field="${user.nom}" placeholder="NOM" required>
+          <input type="text" id="nom" th:field="${user.fullname}" placeholder="FULLNAME" required>
           <!-- <label for="email">Email:</label> -->
           <input type="email" id="email" name="email" th:field="${user.email}" placeholder="EMAIL" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" required>
           <!-- <label for="username">Username:</label> -->

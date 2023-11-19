@@ -14,10 +14,10 @@ public class FreelancerRepositoryImp implements FreelancerRepositoryCostum {
     private EntityManager entityManager;
 
     @Transactional
-    public Freelancer getFreelancerByNom(String nom) {
+    public Freelancer getFreelancerByFullname(String fullname) {
         Query query=entityManager.createNativeQuery("SELECT U.* FROM Freelancer U"+
-                "WHERE U.nom LIKE ?", Freelancer.class);
-        query.setParameter( 1, nom +"%");
+                "WHERE U.fullname LIKE ?", Freelancer.class);
+        query.setParameter( 1, fullname +"%");
         return (Freelancer) query.getSingleResult();
     }
 

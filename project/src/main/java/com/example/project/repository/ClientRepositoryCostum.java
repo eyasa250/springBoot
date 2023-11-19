@@ -4,7 +4,7 @@ import com.example.project.Entity.Client;
 
 public interface ClientRepositoryCostum {
 
-    Client getClientByNom(String nom);
+    Client getClientByFullname(String fullname);
 
     boolean existsByEmailLike(String email);
 

@@ -17,19 +17,20 @@ public class User {
     private Role role;
 
 
-    @Column(name="nom")
-    private  String nom;
+    @Column(name="fullname")
+    private  String fullname;
+
     public void resetPwd() {
 
     }
 
 
-    public User(String username, String email, String password, Role role, String nom) {
+    public User(String username, String email, String password, Role role, String fullname) {
         this.username = username;
         this.email = email;
         this.password = password;
         this.role = role;
-        this.nom = nom;
+        this.fullname = fullname;
     }
 
     public User() {
@@ -68,12 +69,12 @@ public class User {
         this.password = password;
     }
 
-    public String getNom() {
-        return nom;
+    public String getFullname() {
+        return fullname;
     }
 
-    public void setNom(String nom) {
-        this.nom = nom;
+    public void setFullname(String fullname) {
+        this.fullname = fullname;
     }
     public Role getRole() {
         return role;
